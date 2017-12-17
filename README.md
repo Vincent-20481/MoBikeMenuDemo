@@ -4,4 +4,4 @@
 
 使用转场动画
 
-![image](https://github.com/GitHubazuo/LabelCopyDemo/blob/master/DemoGIF.gif)
+![image](https://raw.githubusercontent.com/GitHubazuo/MoBikeMenuDemo/master/1227.gif)
