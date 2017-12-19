@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //给当前view 添加侧边栏手势
     self.interactivePresent = [ZWWInteractiveTransition interactiveTransitionWithTransitionType:ZWWInteractiveTransitionTypePresent GestureDirection:ZWWInteractiveTransitionGestureDirectionRight];
     typeof(self)weakSelf = self;
     self.interactivePresent.presentConifg = ^(){

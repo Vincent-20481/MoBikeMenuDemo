@@ -104,7 +104,7 @@
         case UIGestureRecognizerStateEnded:{
             //手势完成后结束标记并且判断移动距离是否过半，过则finishInteractiveTransition完成转场操作，否者取消转场操作
             self.interation = NO;
-            if (persent > 0.33) {
+            if (persent > 0.08) {
                 [self finishInteractiveTransition];
             }else{
                 [self cancelInteractiveTransition];

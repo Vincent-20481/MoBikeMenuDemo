@@ -22,10 +22,23 @@
     return self;
 }
 
+
+/**
+ 动画时间
+
+ @param transitionContext transitionContext
+ @return 动画时间
+ */
 - (NSTimeInterval)transitionDuration:(nullable id<UIViewControllerContextTransitioning>)transitionContext {
     return 0.5;
 }
 
+
+/**
+ 动画逻辑
+
+ @param transitionContext transitionContext
+ */
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     //为了将两种动画的逻辑分开，变得更加清晰，我们分开书写逻辑，
     switch (_type) {

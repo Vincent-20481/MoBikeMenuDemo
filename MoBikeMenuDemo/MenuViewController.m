@@ -35,6 +35,7 @@
     [backGroundImageView addGestureRecognizer:tap];
     [self.view addSubview:backGroundImageView];
     
+    //给当前view 添加侧边栏手势
     ZWWInteractiveTransition *interactiveDismiss = [ZWWInteractiveTransition interactiveTransitionWithTransitionType:ZWWInteractiveTransitionTypeDismiss GestureDirection:ZWWInteractiveTransitionGestureDirectionLeft];
     [interactiveDismiss addPanGestureForViewController:self];
     self.VCDelegate.interactiveDismiss = interactiveDismiss;
