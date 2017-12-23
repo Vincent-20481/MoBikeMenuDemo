@@ -33,6 +33,10 @@
     [self presentViewController:menu animated:YES completion:nil];
 }
 
+- (void)dealloc{
+    NSLog(@"%@释放了",self);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

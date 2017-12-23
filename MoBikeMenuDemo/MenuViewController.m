@@ -51,7 +51,6 @@
     NSLog(@"%@ 控制器释放了",self);
 }
 
-//- 
 
 
 - (void)didReceiveMemoryWarning {
