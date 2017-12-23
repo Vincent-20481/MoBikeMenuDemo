@@ -10,6 +10,7 @@
 #import "MenuViewController.h"
 #import "ZWWVCTransitioningDelegate.h"
 #import "ZWWInteractiveTransition.h"
+#import "OFOMenuViewController.h"
 @interface ViewController ()
 @property(nonatomic,strong)ZWWInteractiveTransition *interactivePresent;
 
@@ -19,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     //给当前view 添加侧边栏手势
     self.interactivePresent = [ZWWInteractiveTransition interactiveTransitionWithTransitionType:ZWWInteractiveTransitionTypePresent GestureDirection:ZWWInteractiveTransitionGestureDirectionRight];
     typeof(self)weakSelf = self;
@@ -28,9 +30,15 @@
     [self.interactivePresent addPanGestureForViewController:self];
 }
 - (IBAction)setting:(id)sender {
+    //模态转场动画 可以全手势驱动
     MenuViewController *menu = [MenuViewController new];
     menu.VCDelegate.interactivePresent = self.interactivePresent;
     [self presentViewController:menu animated:YES completion:nil];
+}
+- (IBAction)ofoSetting:(id)sender {
+    //模态转场动画 手势懒得写了,膜拜那个够清晰了
+    OFOMenuViewController *OFOMenu = [OFOMenuViewController new];
+    [self presentViewController:OFOMenu animated:YES completion:nil];
 }
 
 - (void)dealloc{
