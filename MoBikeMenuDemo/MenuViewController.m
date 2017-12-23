@@ -10,7 +10,7 @@
 #import "MenuViewController.h"
 
 @interface MenuViewController ()
-
+@property(nonatomic,strong)ZWWInteractiveTransition *interactiveDismiss;
 @end
 
 @implementation MenuViewController
@@ -36,10 +36,11 @@
     [self.view addSubview:backGroundImageView];
     
     //给当前view 添加侧边栏手势
-    ZWWInteractiveTransition *interactiveDismiss = [ZWWInteractiveTransition interactiveTransitionWithTransitionType:ZWWInteractiveTransitionTypeDismiss GestureDirection:ZWWInteractiveTransitionGestureDirectionLeft];
-    [interactiveDismiss addPanGestureForViewController:self];
-    self.VCDelegate.interactiveDismiss = interactiveDismiss;
+    self.interactiveDismiss = [ZWWInteractiveTransition interactiveTransitionWithTransitionType:ZWWInteractiveTransitionTypeDismiss GestureDirection:ZWWInteractiveTransitionGestureDirectionLeft];
+    [self.interactiveDismiss addPanGestureForViewController:self];
+    self.VCDelegate.interactiveDismiss = self.interactiveDismiss;
    
+    
 }
 
 - (void)tapClick{

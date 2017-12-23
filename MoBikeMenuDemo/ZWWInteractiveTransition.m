@@ -49,6 +49,9 @@
  */
 - (void)mask_handleHiddenPan:(NSNotification *)note {
     UIPanGestureRecognizer *pan = note.object;
+    if (_type == ZWWInteractiveTransitionTypePresent) {
+        return;
+    }
     [self handleGesture:pan];
 }
 
@@ -139,6 +142,11 @@
             [_vc.navigationController popViewControllerAnimated:YES];
             break;
     }
+}
+
+- (void)dealloc{
+    NSLog(@"%@手势转场类释放了",self);
+      [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
