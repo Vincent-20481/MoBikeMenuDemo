@@ -36,7 +36,7 @@
     [self presentViewController:menu animated:YES completion:nil];
 }
 - (IBAction)ofoSetting:(id)sender {
-    //模态转场动画 手势懒得写了,膜拜那个够清晰了
+    //模态转场动画 dimiss手势驱动 present不支持(可以自行添加)
     OFOMenuViewController *OFOMenu = [OFOMenuViewController new];
     [self presentViewController:OFOMenu animated:YES completion:nil];
 }

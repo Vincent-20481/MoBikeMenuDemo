@@ -60,27 +60,27 @@
 //实现present动画逻辑代码
 - (void)presentAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
     OFOMenuViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    toVC.view.alpha = 0;
     UIView *containerView = [transitionContext containerView];
     UIView *tempView0 = [toVC.yellowView snapshotViewAfterScreenUpdates:YES];
     tempView0.frame = CGRectMake(0, -kScreenHeight/3, kScreenWidth, kScreenHeight/3);
     UIView *tempView1 = [toVC.whiteView snapshotViewAfterScreenUpdates:YES];
-    tempView1.frame = CGRectMake(0, kScreenHeight/3-30, kScreenWidth, kScreenHeight-(kScreenHeight/3-30));
+    tempView1.frame = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight-(kScreenHeight/3-30));
     UIView *tempView2 = [toVC.userImaegView snapshotViewAfterScreenUpdates:YES];
     tempView2.frame = CGRectMake(40,kScreenHeight, 80, 80);
     //我们用视图的截图做动画,动画完成移除
     [containerView addSubview:tempView0];
     [containerView addSubview:tempView1];
     [containerView addSubview:tempView2];
+    [containerView addSubview:toVC.view];
     //开始动画，使用产生动画API
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
-        tempView0.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight/3);
-        tempView1.frame = CGRectMake(0, kScreenHeight/3-30, kScreenWidth, kScreenHeight-(kScreenHeight/3-30));
-        tempView2.frame = CGRectMake(40, tempView1.frame.origin.y-40, 80, 80);
-        
+        tempView0.frame = toVC.yellowView.frame;
+        tempView1.frame = toVC.whiteView.frame;
+        tempView2.frame = toVC.userImaegView.frame;
     } completion:^(BOOL finished) {
-        //使用如下代码标记整个转场过程是否正常完成[transitionContext transitionWasCancelled]代表手势是否取消了，如果取消了就传NO表示转场失败，反之亦然，如果不用手势present的话直接传YES也是可以的，但是无论如何我们都必须标记转场的状态，系统才知道处理转场后的操作，否者认为你一直还在转场中，会出现无法交互的情况，切记！
-//        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+        toVC.view.alpha = 1;
         //转场失败后的处理
         if ([transitionContext transitionWasCancelled]) {
             //然后移除截图视图，因为下次触发present会重新截图
@@ -92,19 +92,22 @@
 }
 //实现dismiss动画逻辑代码
 - (void)dismissAnimation:(id<UIViewControllerContextTransitioning>)transitionContext{
-    //注意在dismiss的时候fromVC就是MenuViewController了，toVC才是ViewController了，注意这个关系
-    //参照present动画的逻辑，present成功后，containerView的最后一个子视图就是mask视图，我们将
     UIView *temp0 = [transitionContext containerView].subviews[0];
     UIView *temp1 = [transitionContext containerView].subviews[1];
     UIView *temp2 = [transitionContext containerView].subviews[2];
+    OFOMenuViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    fromVC.view.alpha = 0;
     //动画吧
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        //因为present的时候都是使用的transform，这里的动画只需要将transform恢复就可以了
+        temp0.frame = CGRectMake(0, -kScreenHeight/3, kScreenWidth, kScreenHeight/3);
+        temp1.frame = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight-(kScreenHeight/3-30));
+        temp2.frame = CGRectMake(40,kScreenHeight, 80, 80);
         
     } completion:^(BOOL finished) {
         if ([transitionContext transitionWasCancelled]) {
             //失败了标记失败
             [transitionContext completeTransition:NO];
+            fromVC.view.alpha = 1;
         }else{
             //如果成功了，我们需要标记成功，同时让vc1显示出来，然后移除截图视图，
             [transitionContext completeTransition:YES];
